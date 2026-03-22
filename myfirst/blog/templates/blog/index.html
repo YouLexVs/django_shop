@@ -1,0 +1,17 @@
+<h1>Blog</h1>
+
+<a href="/new/">Dodaj post</a>
+
+{% for post in posts %}
+  <div>
+    <h2>{{ post.name }}</h2>
+
+    <img src="{{ post.image.url }}" width="200">
+
+    <p>{{ post.short_description }}</p>
+
+    <a href="/{{ post.id }}/">Szczegóły</a>
+    <a href="/{{ post.id }}/edit/">Edytuj</a>
+    <a href="/{{ post.id }}/delete/">Usuń</a>
+  </div>
+{% endfor %}

@@ -1,0 +1,14 @@
+<h1>Koszyk</h1>
+{% for item in cart_items %}
+  <div>
+    <h2>{{ item.product.name }}</h2>
+    <p>Ilość: {{ item.quantity }}</p>
+    <p>Cena: {{ item.product.price }}</p>
+    <p>Suma: {{ item.total_price }}</p>
+  </div>
+{% empty %}
+  <p>Koszyk jest pusty.</p>
+{% endfor %}
+
+<h3>Razem: {{ total }}</h3>
+<a href="{% url 'product_list' %}">Kontynuuj zakupy</a>
