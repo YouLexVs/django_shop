@@ -1,14 +1,39 @@
-<h1>Koszyk</h1>
-{% for item in cart_items %}
-  <div>
-    <h2>{{ item.product.name }}</h2>
-    <p>Ilość: {{ item.quantity }}</p>
-    <p>Cena: {{ item.product.price }}</p>
-    <p>Suma: {{ item.total_price }}</p>
-  </div>
-{% empty %}
-  <p>Koszyk jest pusty.</p>
-{% endfor %}
+{% extends "blog/base.html" %}
 
-<h3>Razem: {{ total }}</h3>
-<a href="{% url 'product_list' %}">Kontynuuj zakupy</a>
+{% block content %}
+
+<div class="container my-5">
+    <h1 class="mb-4">Twój Koszyk </h1>
+
+    {% if cart_items %}
+        <div class="row">
+            {% for item in cart_items %}
+            <div class="col-md-6 mb-3">
+                <div class="card shadow-sm">
+                    {% if item.product.image %}
+                    <img src="{{ item.product.image.url }}" class="card-img-top" alt="{{ item.product.name }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.product.name }}</h5>
+                        <p class="card-text">Ilość: {{ item.quantity }}</p>
+                        <p class="card-text">Cena: {{ item.product.price }} zł</p>
+                        <p class="card-text"><strong>Suma: {{ item.total_price }} zł</strong></p>
+                        <a href="{% url 'product_list' %}" class="btn btn-primary">Kontynuuj zakupy</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="mt-4">
+            <h3>Razem: <span class="text-success">{{ total }} zł</span></h3>
+        </div>
+    {% else %}
+        <div class="alert alert-warning" role="alert">
+            Twój koszyk jest pusty.
+        </div>
+        <a href="{% url 'product_list' %}" class="btn btn-primary">Przejdź do sklepu</a>
+    {% endif %}
+</div>
+
+{% endblock %}
